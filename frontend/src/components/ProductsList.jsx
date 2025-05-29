@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
+import { Trash, Star } from "lucide-react";
 import { useProductStore } from "../stores/useProductStore";
-import { Star, Trash } from "lucide-react";
 
 const ProductsList = () => {
-  const { toggleFeaturedProduct, deleteProduct, products } = useProductStore();
+  const { deleteProduct, toggleFeaturedProduct, products } = useProductStore();
+
+  console.log("products", products);
 
   return (
     <motion.div
@@ -12,49 +14,51 @@ const ProductsList = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <table className="min-w-full divide-y divide-gray-700">
+      <table className=" min-w-full divide-y divide-gray-700">
         <thead className="bg-gray-700">
-          <th
-            scope="col"
-            className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
-          >
-            Product
-          </th>
-          <th
-            scope="col"
-            className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
-          >
-            Price
-          </th>
-          <th
-            scope="col"
-            className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
-          >
-            Category
-          </th>
+          <tr>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+            >
+              Product
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+            >
+              Price
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+            >
+              Category
+            </th>
 
-          <th
-            scope="col"
-            className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
-          >
-            Featured
-          </th>
-          <th
-            scope="col"
-            className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
-          >
-            Actions
-          </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+            >
+              Featured
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+            >
+              Actions
+            </th>
+          </tr>
         </thead>
 
         <tbody className="bg-gray-800 divide-y divide-gray-700">
-          {products.map((product) => (
+          {products?.map((product) => (
             <tr key={product._id} className="hover:bg-gray-700">
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="flex items-center">
-                  <div className="flex-shrink-0 size-10">
+                  <div className="flex-shrink-0 h-10 w-10">
                     <img
-                      className="size-10 rounded-full object-cover"
+                      className="h-10 w-10 rounded-full object-cover"
                       src={product.image}
                       alt={product.name}
                     />
@@ -74,7 +78,6 @@ const ProductsList = () => {
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="text-sm text-gray-300">{product.category}</div>
               </td>
-
               <td className="px-6 py-4 whitespace-nowrap">
                 <button
                   onClick={() => toggleFeaturedProduct(product._id)}
@@ -84,7 +87,7 @@ const ProductsList = () => {
                       : "bg-gray-600 text-gray-300"
                   } hover:bg-yellow-500 transition-colors duration-200`}
                 >
-                  <Star className="size-5" />
+                  <Star className="h-5 w-5" />
                 </button>
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -92,7 +95,7 @@ const ProductsList = () => {
                   onClick={() => deleteProduct(product._id)}
                   className="text-red-400 hover:text-red-300 cursor-pointer ml-5"
                 >
-                  <Trash className="size-5" />
+                  <Trash className="h-5 w-5" />
                 </button>
               </td>
             </tr>
@@ -102,5 +105,4 @@ const ProductsList = () => {
     </motion.div>
   );
 };
-
 export default ProductsList;
