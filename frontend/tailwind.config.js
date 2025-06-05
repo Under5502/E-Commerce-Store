@@ -5,4 +5,7 @@ module.exports = {
     extend: {},
   },
   plugins: [],
+  future: {
+    scrollbarGutter: true,
+  },
 };
